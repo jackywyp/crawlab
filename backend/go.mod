@@ -3,6 +3,7 @@ module crawlab
 go 1.12
 
 require (
+	github.com/Shopify/sarama v1.26.4
 	github.com/Unknwon/goconfig v0.0.0-20191126170842-860a72fb44fd
 	github.com/apex/log v1.1.1
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
@@ -26,5 +27,5 @@ require (
 	gopkg.in/gomail.v2 v2.0.0-20150902115704-41f357289737
 	gopkg.in/russross/blackfriday.v2 v2.0.0 // indirect
 	gopkg.in/src-d/go-git.v4 v4.13.1
-	gopkg.in/yaml.v2 v2.2.2
+	gopkg.in/yaml.v2 v2.2.8
 )

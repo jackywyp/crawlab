@@ -40,7 +40,7 @@ RUN wget -O /usr/local/bin/dumb-init https://github.com/Yelp/dumb-init/releases/
 RUN chmod +x /usr/local/bin/dumb-init
 
 # install backend
-RUN pip install scrapy pymongo bs4 requests crawlab-sdk scrapy-splash
+RUN pip install scrapy pymongo kafka-python bs4 requests crawlab-sdk scrapy-splash
 
 # add files
 ADD . /app

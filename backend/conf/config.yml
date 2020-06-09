@@ -1,20 +1,23 @@
 api:
   address: "localhost:8000"
 mongo:
-  host: localhost
+  host: 192.168.77.128
   port: 27017
   db: crawlab_test
   username: ""
   password: ""
   authSource: "admin"
 redis:
-  address: localhost
+  address: 192.168.77.128
   password: ""
   database: 1
   port: 6379
+kafka:
+  nodes:
+    - "192.168.77.128:9092"
 log:
   level: info
-  path: "/var/logs/crawlab"
+  path: "D:/develope/tmp/crawlab/logs"
   isDeletePeriodically: "N"
   deleteFrequency: "@hourly"
 server:
@@ -33,11 +36,11 @@ server:
     dotnet: "N"
     php: "N"
 spider:
-  path: "/app/spiders"
+  path: "D:/develope/spiders"
 task:
   workers: 4
 other:
-  tmppath: "/tmp"
+  tmppath: "D:/develope/tmp/crawlab/tmp"
 version: 0.4.10
 setting:
   allowRegister: "N"

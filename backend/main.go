@@ -305,7 +305,15 @@ func main() {
 		Addr:    address,
 	}
 	go func() {
-		if err := srv.ListenAndServe(); err != nil {
+		addr := srv.Addr
+		if addr == "" {
+			addr = ":http"
+		}
+		ln, err := net.Listen("tcp4", addr)
+		if err == nil {
+			err = srv.Serve(ln)
+		}
+		if err != nil {
 			if err != http.ErrServerClosed {
 				log.Error("run server error:" + err.Error())
 			} else {

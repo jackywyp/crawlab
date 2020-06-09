@@ -28,7 +28,6 @@ import (
 	"strconv"
 	"strings"
 	"sync"
-	"syscall"
 	"time"
 )
 
@@ -142,6 +141,8 @@ func SetEnv(cmd *exec.Cmd, envs []model.Env, task model.Task, spider model.Spide
 	if viper.GetString("mongo.authSource") != "" {
 		cmd.Env = append(cmd.Env, "CRAWLAB_MONGO_AUTHSOURCE="+viper.GetString("mongo.authSource"))
 	}
+	kafkaNodes := viper.GetStringSlice("kafka.nodes")
+	cmd.Env = append(cmd.Env, "KAFKA_NODES="+strings.Join(kafkaNodes, ","))
 	cmd.Env = append(cmd.Env, "PYTHONUNBUFFERED=0")
 	cmd.Env = append(cmd.Env, "PYTHONIOENCODING=utf-8")
 	cmd.Env = append(cmd.Env, "TZ=Asia/Shanghai")
@@ -267,7 +268,7 @@ func FinishOrCancelTask(ch chan string, cmd *exec.Cmd, s model.Spider, t model.T
 		if runtime.GOOS == constants.Windows {
 			err = cmd.Process.Kill()
 		} else {
-			err = syscall.Kill(-cmd.Process.Pid, syscall.SIGKILL)
+			//err = syscall.Kill(-cmd.Process.Pid, syscall.SIGKILL)
 		}
 		// 取消进程
 		if err != nil {
@@ -292,7 +293,8 @@ func FinishOrCancelTask(ch chan string, cmd *exec.Cmd, s model.Spider, t model.T
 }
 
 func StartTaskProcess(cmd *exec.Cmd, t model.Task) error {
-	if err := cmd.Start(); err != nil {
+	err := cmd.Start()
+	if err != nil {
 		log.Errorf("start spider error:{}", err.Error())
 		debug.PrintStack()
 
@@ -378,7 +380,7 @@ func ExecuteShellCmd(cmdStr string, cwd string, t model.Task, s model.Spider, u 
 
 	// kill的时候，可以kill所有的子进程
 	if runtime.GOOS != constants.Windows {
-		cmd.SysProcAttr = &syscall.SysProcAttr{Setpgid: true}
+		//cmd.SysProcAttr = &syscall.SysProcAttr{Setpgid: true}
 	}
 
 	// 启动进程

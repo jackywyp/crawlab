@@ -21,6 +21,48 @@
                :visible.sync="addDialogVisible"
                :before-close="onAddDialogClose">
       <el-tabs :active-name="activeTabName">
+        <!-- configurable -->
+        <el-tab-pane name="configurable" :label="$t('Configurable')">
+          <el-form :model="spiderForm" ref="addConfigurableForm" inline-message label-width="120px">
+            <el-form-item :label="$t('Spider Name')" prop="name" required>
+              <el-input v-model="spiderForm.name" :placeholder="$t('Spider Name')"/>
+            </el-form-item>
+            <el-form-item :label="$t('Display Name')" prop="display_name" required>
+              <el-input v-model="spiderForm.display_name" :placeholder="$t('Display Name')"/>
+            </el-form-item>
+            <el-form-item :label="$t('Project')" prop="project_id" required>
+              <el-select
+                v-model="spiderForm.project_id"
+                :placeholder="$t('Project')"
+                filterable
+              >
+                <el-option
+                  v-for="p in projectList"
+                  :key="p._id"
+                  :value="p._id"
+                  :label="p.name"
+                />
+              </el-select>
+            </el-form-item>
+            <el-form-item :label="$t('Template')" prop="template" required>
+              <el-select id="template" v-model="spiderForm.template" :value="spiderForm.template"
+                         :placeholder="$t('Template')">
+                <el-option
+                  v-for="template in templateList"
+                  :key="template"
+                  :label="template"
+                  :value="template"
+                />
+              </el-select>
+            </el-form-item>
+            <el-form-item :label="$t('Results')" prop="col" required>
+              <el-input v-model="spiderForm.col" :placeholder="$t('Results')"/>
+            </el-form-item>
+          </el-form>
+          <div class="actions">
+            <el-button id="add" size="small" type="primary" @click="onAddConfigurable">{{$t('Add')}}</el-button>
+          </div>
+        </el-tab-pane>
         <!-- customized -->
         <el-tab-pane name="customized" :label="$t('Customized')">
           <el-form :model="spiderForm" ref="addCustomizedForm" inline-message label-width="120px">
@@ -127,48 +169,7 @@
             <el-button size="small" type="primary" @click="onAddCustomized">{{$t('Add')}}</el-button>
           </div>
         </el-tab-pane>
-        <!-- configurable -->
-        <el-tab-pane name="configurable" :label="$t('Configurable')">
-          <el-form :model="spiderForm" ref="addConfigurableForm" inline-message label-width="120px">
-            <el-form-item :label="$t('Spider Name')" prop="name" required>
-              <el-input v-model="spiderForm.name" :placeholder="$t('Spider Name')"/>
-            </el-form-item>
-            <el-form-item :label="$t('Display Name')" prop="display_name" required>
-              <el-input v-model="spiderForm.display_name" :placeholder="$t('Display Name')"/>
-            </el-form-item>
-            <el-form-item :label="$t('Project')" prop="project_id" required>
-              <el-select
-                v-model="spiderForm.project_id"
-                :placeholder="$t('Project')"
-                filterable
-              >
-                <el-option
-                  v-for="p in projectList"
-                  :key="p._id"
-                  :value="p._id"
-                  :label="p.name"
-                />
-              </el-select>
-            </el-form-item>
-            <el-form-item :label="$t('Template')" prop="template" required>
-              <el-select id="template" v-model="spiderForm.template" :value="spiderForm.template"
-                         :placeholder="$t('Template')">
-                <el-option
-                  v-for="template in templateList"
-                  :key="template"
-                  :label="template"
-                  :value="template"
-                />
-              </el-select>
-            </el-form-item>
-            <el-form-item :label="$t('Results')" prop="col" required>
-              <el-input v-model="spiderForm.col" :placeholder="$t('Results')"/>
-            </el-form-item>
-          </el-form>
-          <div class="actions">
-            <el-button id="add" size="small" type="primary" @click="onAddConfigurable">{{$t('Add')}}</el-button>
-          </div>
-        </el-tab-pane>
+
       </el-tabs>
     </el-dialog>
     <!--./add dialog-->
@@ -712,7 +713,7 @@ export default {
         name: [{ required: true, message: 'Required Field', trigger: 'change' }]
       },
       fileList: [],
-      activeTabName: 'customized',
+      activeTabName: 'configurable',
       tourSteps: [
         {
           target: '#tab-customized',

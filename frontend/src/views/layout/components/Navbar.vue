@@ -35,6 +35,7 @@
         </el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
+    <!--
     <el-dropdown class="lang-list right" trigger="click">
       <span class="el-dropdown-link">
         {{$t($store.getters['lang/lang'])}}
@@ -75,8 +76,9 @@
         <i class="fa fa-wechat"></i>
       </div>
     </el-popover>
+    -->
+    <!--
     <div class="github right">
-      <!-- Place this tag where you want the button to render. -->
       <github-button
         href="https://github.com/crawlab-team/crawlab"
         data-color-scheme="no-preference: light; light: light; dark: dark;"
@@ -88,6 +90,7 @@
         Star
       </github-button>
     </div>
+    -->
   </div>
 </template>
 

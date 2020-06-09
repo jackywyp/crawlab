@@ -2,6 +2,7 @@ package routes
 
 import (
 	"crawlab/constants"
+	"crawlab/database"
 	"crawlab/entity"
 	"crawlab/model"
 	"crawlab/services"
@@ -81,6 +82,12 @@ func PutConfigSpider(c *gin.Context) {
 	}
 	defer f.Close()
 	if _, err := f.Write(contentByte); err != nil {
+		HandleError(http.StatusInternalServerError, c, err)
+		return
+	}
+
+	//创建kafka topic
+	if err := database.CreateKafkaTopic(spider.Col); err != nil {
 		HandleError(http.StatusInternalServerError, c, err)
 		return
 	}

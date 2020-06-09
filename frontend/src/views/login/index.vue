@@ -52,6 +52,7 @@
           {{$t('Sign in')}}
         </el-button>
       </el-form-item>
+      <!--
       <div class="alternatives">
         <div class="left">
           <span v-if="!isSignUp" class="forgot-password">{{$t('Forgot Password')}}</span>
@@ -63,6 +64,7 @@
           <span v-if="!isSignUp" class="sign-up" @click="$router.push('/signup')">{{$t('Sign-up')}} ></span>
         </div>
       </div>
+
       <div class="tips">
         <span>{{$t('Initial Username/Password')}}: admin/admin</span>
         <a href="https://github.com/crawlab-team/crawlab" target="_blank" style="float:right">
@@ -77,6 +79,7 @@
       <div class="documentation">
         <a href="http://docs.crawlab.cn" target="_blank">{{$t('Documentation')}}</a>
       </div>
+      -->
       <div v-if="isShowMobileWarning" class="mobile-warning">
         <el-alert type="error" :closable="false">
           {{$t('You are running on a mobile device, which is not optimized yet. Please try with a laptop or desktop.')}}
