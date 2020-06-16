@@ -29,8 +29,14 @@ class ConfigSpiderPipeline(object):
 
     def process_item(self, item, spider):
         item['task_id'] = task_id
-        col.save(item)
-        self.producer.send(topic, str(item).encode(encoding='utf_8'))
+        data = dict()
+        for k in item.keys():
+            if item[k]==None:
+                data[k] = item[k]
+            else:
+                data[k] = item[k].strip().strip('\n').replace(u'\u3000',u' ').replace('\n', '').replace('\r', '')
+        col.save(data)
+        self.producer.send(topic, json.dumps(data, ensure_ascii=False).encode(encoding='utf_8'))
         return item
 
     def spider_closed(self, spider):
