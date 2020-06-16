@@ -6,6 +6,7 @@
 # See: https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 
 import os
+import json
 from pymongo import MongoClient
 from kafka import KafkaProducer
 
