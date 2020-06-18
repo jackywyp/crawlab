@@ -7,6 +7,7 @@
 
 import os
 import json
+import time
 from pymongo import MongoClient
 from kafka import KafkaProducer
 
@@ -37,8 +38,9 @@ class ConfigSpiderPipeline(object):
                 data[k] = item[k]
             else:
                 data[k] = item[k].strip().strip('\n').replace(u'\u3000',u' ').replace('\n', '').replace('\r', '')
+        bstr = json.dumps(data, ensure_ascii=False).encode(encoding='utf_8')
+        self.producer.send(topic, bstr)
         col.save(data)
-        self.producer.send(topic, json.dumps(data, ensure_ascii=False).encode(encoding='utf_8'))
         return item
 
     def spider_closed(self, spider):
