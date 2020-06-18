@@ -43,6 +43,7 @@ func (g ScrapyGenerator) ProcessItems() error {
 		"_id",
 		"task_id",
 		"ts",
+		"source_url",
 	}
 
 	// 加入字段
@@ -137,6 +138,10 @@ func (g ScrapyGenerator) GetNonListParserString(stageName string, stage entity.S
 		str += line
 	}
 
+	line := fmt.Sprintf(`item['source_url'] = response.url`)
+	line = g.PadCode(line, 2)
+	str += line
+
 	// next stage 字段
 	if f, err := g.GetNextStageField(stage); err == nil {
 		// 如果找到 next stage 字段，进行下一个回调
@@ -170,6 +175,9 @@ func (g ScrapyGenerator) GetListParserString(stageName string, stage entity.Stag
 		line = g.PadCode(line, 3)
 		str += line
 	}
+	line := fmt.Sprintf(`item['source_url'] = response.url`)
+	line = g.PadCode(line, 3)
+	str += line
 
 	// 把前一个 stage 的 item 值赋给当前 item
 	str += g.PadCode(`if prev_item is not None:`, 3)

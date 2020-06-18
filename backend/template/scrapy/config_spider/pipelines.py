@@ -8,6 +8,7 @@
 import os
 import json
 import time
+import re
 from pymongo import MongoClient
 from kafka import KafkaProducer
 
@@ -37,7 +38,7 @@ class ConfigSpiderPipeline(object):
             if item[k]==None:
                 data[k] = item[k]
             else:
-                data[k] = item[k].strip().strip('\n').replace(u'\u3000',u' ').replace('\n', '').replace('\r', '')
+                data[k] = re.sub('\s', ' ', item[k]).strip().strip('\n').replace(u'\u3000',u' ').replace('\n', '').replace('\r', '')
         bstr = json.dumps(data, ensure_ascii=False).encode(encoding='utf_8')
         self.producer.send(topic, bstr)
         col.save(data)
