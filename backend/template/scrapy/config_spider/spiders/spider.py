@@ -16,6 +16,6 @@ class ConfigSpider(scrapy.Spider):
     name = 'config_spider'
 
     def start_requests(self):
-        yield scrapy.Request(url='###START_URL###', callback=self.###START_STAGE###)
+        yield scrapy.Request(url='###START_URL###', callback=self.###START_STAGE###, dont_filter=True)
 
 ###PARSERS###

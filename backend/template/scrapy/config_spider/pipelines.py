@@ -31,6 +31,7 @@ class ConfigSpiderPipeline(object):
     def process_item(self, item, spider):
         item['task_id'] = task_id
         data = dict()
+        data['create_time'] = int(round(time.time() * 1000))
         for k in item.keys():
             if item[k]==None:
                 data[k] = item[k]

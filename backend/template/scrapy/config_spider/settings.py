@@ -71,6 +71,14 @@ ITEM_PIPELINES = {
    'config_spider.pipelines.ConfigSpiderPipeline': 300,
 }
 
+# Ensure all spiders share same duplicates filter through redis.
+DUPEFILTER_CLASS = "scrapy_baosight_bloomfilter.dupefilter.RFPDupeFilter"
+
+# Number of Hash Functions to use, defaults to 6
+BLOOMFILTER_HASH_NUMBER = 10
+
+# Bit
+BLOOMFILTER_BIT = 30
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
 #AUTOTHROTTLE_ENABLED = True
