@@ -42,6 +42,8 @@ func (g ScrapyGenerator) ProcessItems() error {
 	fieldNames := []string{
 		"_id",
 		"task_id",
+		"spider_id",
+		"project_id",
 		"ts",
 		"source_url",
 	}

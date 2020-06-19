@@ -127,6 +127,8 @@ func SetEnv(cmd *exec.Cmd, envs []model.Env, task model.Task, spider model.Spide
 
 	// 默认环境变量
 	cmd.Env = append(os.Environ(), "CRAWLAB_TASK_ID="+task.Id)
+	cmd.Env = append(cmd.Env, "CRAWLAB_SPIDER_ID="+task.SpiderId.Hex())
+	cmd.Env = append(cmd.Env, "CRAWLAB_PROJECT_ID="+spider.ProjectId.Hex())
 	cmd.Env = append(cmd.Env, "CRAWLAB_COLLECTION="+col)
 	cmd.Env = append(cmd.Env, "CRAWLAB_MONGO_HOST="+viper.GetString("mongo.host"))
 	cmd.Env = append(cmd.Env, "CRAWLAB_MONGO_PORT="+viper.GetString("mongo.port"))

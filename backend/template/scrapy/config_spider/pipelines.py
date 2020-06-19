@@ -25,6 +25,8 @@ kafka_nodes = os.environ.get('KAFKA_NODES')
 
 topic = os.environ.get('CRAWLAB_COLLECTION')
 task_id = os.environ.get('CRAWLAB_TASK_ID')
+spider_id = os.environ.get('CRAWLAB_SPIDER_ID')
+project_id = os.environ.get('CRAWLAB_PROJECT_ID')
 
 class ConfigSpiderPipeline(object):
     def __init__(self):
@@ -32,6 +34,8 @@ class ConfigSpiderPipeline(object):
 
     def process_item(self, item, spider):
         item['task_id'] = task_id
+        item['spider_id'] = spider_id
+        item['project_id'] = project_id
         data = dict()
         data['create_time'] = int(round(time.time() * 1000))
         for k in item.keys():
